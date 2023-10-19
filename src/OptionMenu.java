@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class OptionMenu extends Account{
@@ -46,26 +47,17 @@ public class OptionMenu extends Account{
                 "Type 2 - Saving Account\n" +
                 "Type 3 - Exit\n");
 
-        int selection = input.nextInt();
+        int selection = getInputSelection();
 
-        switch(selection) {
-            case 1:
-                getCurrent();
-                break;
-
-            case 2:
-                getSaving();
-                break;
-
-            case 3:
-                System.out.println("Thank you for using this ATM." +
-                        "Have a Good day!\n");
-                break;
-
-            default:
+        switch (selection) {
+            case 1 -> getCurrent();
+            case 2 -> getSaving();
+            case 3 -> System.out.println("Thank you for using this ATM." +
+                    "Have a Good day!\n");
+            default -> {
                 System.out.println("\nInvalid choice\n");
                 getAccountType();
-                break;
+            }
         }
     }
 
@@ -76,35 +68,27 @@ public class OptionMenu extends Account{
                 "Type 3 - Deposit Funds\n" +
                 "Type 4 - Exit\n");
 
-        System.out.print("Choice: ");
-        int selection = input.nextInt();
+        int selection = getInputSelection();
 
         switch (selection) {
-            case 1:
+            case 1 -> {
                 System.out.println("Checking account balance: " +
                         currencyFormat.format(getCurrentAccBalance()));
-
                 getAccountType();
-                break;
-
-            case 2:
+            }
+            case 2 -> {
                 getCurrentWithdrawInput();
                 getAccountType();
-                break;
-
-            case 3:
+            }
+            case 3 -> {
                 getCurrentDepositInput();
                 getAccountType();
-                break;
-
-            case 4:
-                System.out.println("Thank you for using this ATM! \nHave a Nice day!");
-                break;
-
-            default:
+            }
+            case 4 -> System.out.println("Thank you for using this ATM! \nHave a Nice day!");
+            default -> {
                 System.out.println("\n" + "Invalid Choice. Please Try again.\n");
                 getCurrent();
-
+            }
         }
     }
 
@@ -115,34 +99,39 @@ public class OptionMenu extends Account{
                 "Type 3 - Deposit Funds\n" +
                 "Type 4 - Exit\n");
 
-        System.out.print("Choice: ");
-        int selection = input.nextInt();
+        int selection = getInputSelection();
 
         switch (selection) {
-            case 1:
+            case 1 -> {
                 System.out.println("Checking account balance: " +
                         currencyFormat.format(getSavingAccBalance()));
-
                 getAccountType();
-                break;
-
-            case 2:
+            }
+            case 2 -> {
                 getSavingWithdrawInput();
                 getAccountType();
-                break;
-
-            case 3:
+            }
+            case 3 -> {
                 getSavingDepositInput();
                 getAccountType();
-                break;
-
-            case 4:
-                System.out.println("Thank you for using this ATM! \nHave a Nice day!");
-                break;
-
-            default:
+            }
+            case 4 -> System.out.println("Thank you for using this ATM! \nHave a Nice day!");
+            default -> {
                 System.out.println("\nInvalid Choice. Please Try again.\n");
                 getSaving();
+            }
         }
+    }
+
+    public int getInputSelection(){
+        int selection = -1;
+
+        try {
+            System.out.print("Choice: ");
+            input.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input");
+        }
+        return selection;
     }
 }

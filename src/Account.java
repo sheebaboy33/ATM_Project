@@ -1,4 +1,5 @@
 import java.text.DecimalFormat;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Account{
@@ -40,20 +41,20 @@ public class Account{
     }
 
 
-    public double calcCheckingWithdraw( double amount) {
-        return currentAccBalance -= amount;
+    public void calcCheckingWithdraw( double amount) {
+        currentAccBalance -= amount;
     }
 
-    public double calcSavingWithdraw(double amount) {
-        return savingAccBalance -= amount;
+    public void calcSavingWithdraw(double amount) {
+        savingAccBalance -= amount;
     }
 
-    public double calcCurrentDeposit(double amount) {
-        return currentAccBalance += amount;
+    public void calcCurrentDeposit(double amount) {
+        currentAccBalance += amount;
     }
 
-    public double calcSavingDeposit(double amount) {
-        return savingAccBalance += amount;
+    public void calcSavingDeposit(double amount) {
+        savingAccBalance += amount;
     }
 
     public void getCurrentWithdrawInput() {
@@ -89,7 +90,8 @@ public class Account{
         System.out.println("Current account balance: " +
                 currentFormat.format(currentAccBalance));
         System.out.print("Enter the amount you wish to deposit: ");
-        double amount = input.nextDouble();
+
+        double amount = getInput();
 
         if (amount >= 0) {
             calcCurrentDeposit(amount);
@@ -104,7 +106,8 @@ public class Account{
         System.out.println("Saving account balance: " +
                 currentFormat.format(savingAccBalance));
         System.out.print("Enter the amount you wish to deposit: ");
-        double amount = input.nextDouble();
+
+        double amount = getInput();
 
         if (amount >= 0) {
             calcSavingDeposit(amount);
@@ -113,5 +116,15 @@ public class Account{
         } else {
             System.out.println("Sorry, Invalid amount.\n");
         }
+    }
+
+    public double getInput() {
+        double amount = -1;
+        try {
+            amount = input.nextDouble();
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input!");
+        }
+        return amount;
     }
 }
