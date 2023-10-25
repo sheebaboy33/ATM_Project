@@ -10,6 +10,7 @@ public class OptionMenu extends Account{
     DecimalFormat currencyFormat = new DecimalFormat("'$'###,##0.00");
 
     HashMap<Integer, Integer> accountInfo = new HashMap<Integer, Integer>();
+    // Keeps track of the account number and the PIN
 
     public void getLogin(){
         int x = 1;

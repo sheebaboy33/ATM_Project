@@ -91,6 +91,7 @@ public class Account{
                 currentFormat.format(currentAccBalance));
         System.out.print("Enter the amount you wish to deposit: ");
 
+        // Getting input from the user
         double amount = getInput();
 
         if (amount >= 0) {
